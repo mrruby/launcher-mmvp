@@ -8,6 +8,9 @@ dependencies:
   '@floating-ui/dom':
     specifier: 1.5.3
     version: 1.5.3
+  '@tauri-apps/api':
+    specifier: ^1.5.0
+    version: 1.5.0
 
 devDependencies:
   '@skeletonlabs/skeleton':
@@ -529,6 +532,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@tauri-apps/api@1.5.0:
+    resolution: {integrity: sha512-yQY9wpVNuiYhLLuyDlu1nBpqJELT1fGp7OctN4rW9I2W1T2p7A3tqPxsEzQprEwneQRBAlPM9vC8NsnMbct+pg==}
+    engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
 
   /@tauri-apps/cli-darwin-arm64@1.5.1:
     resolution: {integrity: sha512-o2FSGj72gqJjlVtuScXQZUgiRs90PS9gG7YAz0Hgr4nV1MfIn9U6JVj6R+mnAEZBCK8qdy5jdemhmNKDDoiYQg==}
