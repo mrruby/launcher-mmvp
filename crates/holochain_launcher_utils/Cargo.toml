@@ -1,0 +1,30 @@
+[package]
+name = "holochain_launcher_utils"
+version = "0.0.5"
+edition = "2021"
+description = "Shared utils used by Holochain Launcher and the hc launch CLI (holochain_cli_launch)"
+license-file = "LICENSE_CAL-1.0"
+homepage = "https://developer.holochain.org"
+documentation = "https://docs.rs/holochain_launcher_utils"
+repository = "https://github.com/holochain/launcher"
+readme = "README.md"
+categories = ["command-line-utilities", "development-tools"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+holochain_client = { workspace = true }
+
+holochain_conductor_api = { workspace = true }
+holochain_types = { workspace = true }
+holochain_zome_types = { workspace = true }
+
+lair_keystore_api = { workspace = true }
+
+
+log = "0.4.14"
+mime_guess = "2.0.4"
+open = "5.0.0"
+serde = { version = "1", features = ["derive"] }
+tauri = {version = "1.4.0", features = ["clipboard-write-text", "dialog-all", "devtools", "native-tls-vendored", "reqwest-native-tls-vendored"] }
+
