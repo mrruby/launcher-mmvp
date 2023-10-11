@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { appWindow, LogicalSize } from '@tauri-apps/api/window';
+	import { invoke } from '@tauri-apps/api/tauri';
 
 	onMount(async () => {
 		const size = await appWindow.innerSize();
 		console.log('innerSize', await appWindow.innerSize());
 		console.log('outerSize', await appWindow.outerSize());
 		await appWindow.setSize(new LogicalSize(1200, 500));
+
+		const appInfo = await invoke('get_state_info', {});
+		console.log(appInfo);
 	});
 </script>
 
