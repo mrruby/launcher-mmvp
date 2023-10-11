@@ -1,22 +1,22 @@
 {
-  "build": {
-    "distDir": "./dist"
-  },
-  "tauri": {
-    "allowlist": {
-      "clipboard": {
-        "writeText": true
-      },
-      "dialog": {
-        "all": true
-      },
-      "shell": {
-        "open": true
-      }
-    },
-    "security": {
-      "csp": null
-    },
-    "windows": []
-  }
+	"build": {
+		"distDir": "./dist"
+	},
+	"tauri": {
+		"allowlist": {
+			"clipboard": {
+				"writeText": true
+			},
+			"dialog": {
+				"all": true
+			},
+			"shell": {
+				"open": true
+			}
+		},
+		"security": {
+			"csp": null
+		},
+		"windows": []
+	}
 }

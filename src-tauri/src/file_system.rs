@@ -10,17 +10,14 @@ static APP_NAME: &str = "holochain-launcher-0.2";
 /// Name of the profile
 pub type Profile = String;
 
-
 /// To store things in different locations during development
 fn component_name(name: &str) -> String {
-  if cfg!(debug_assertions) {
-    format!("{}-dev", name)
-  } else {
-    String::from(name)
-  }
+    if cfg!(debug_assertions) {
+        format!("{}-dev", name)
+    } else {
+        String::from(name)
+    }
 }
-
-
 
 /** Config */
 
@@ -36,17 +33,19 @@ fn component_name(name: &str) -> String {
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_config_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  #[cfg(target_os = "linux")]
-  let path = dirs_next::config_dir()
-    .ok_or(LauncherError::SystemDirError(String::from("Failed to get profile config dir")))?
-    .join(component_name(APP_NAME))
-    .join("profiles")
-    .join(profile);
+    #[cfg(target_os = "linux")]
+    let path = dirs_next::config_dir()
+        .ok_or(LauncherError::SystemDirError(String::from(
+            "Failed to get profile config dir",
+        )))?
+        .join(component_name(APP_NAME))
+        .join("profiles")
+        .join(profile);
 
-  #[cfg(not(target_os = "linux"))]
-  let path = profile_data_dir(profile)?.join("config");
+    #[cfg(not(target_os = "linux"))]
+    let path = profile_data_dir(profile)?.join("config");
 
-  Ok(path)
+    Ok(path)
 }
 
 /// Path to config files of holochain versions. Contains `conductor-config.yaml`.
@@ -55,11 +54,13 @@ pub fn profile_config_dir(profile: String) -> Result<PathBuf, LauncherError> {
 /// * **macOS:** `$HOME/Library/Application Support/${APP_NAME}/profiles/${profile}/${holochain version}`
 /// * **Windows:** `{FOLDERID_RoamingAppData}/${APP_NAME}/profiles/${profile}/${holochain version}`
 ///
-pub fn conductor_config_dir(holochain_version: HolochainVersion, profile: String) -> Result<PathBuf, LauncherError> {
-  let version: String = holochain_version.into();
-  Ok(profile_config_dir(profile)?.join("holochain").join(version))
+pub fn conductor_config_dir(
+    holochain_version: HolochainVersion,
+    profile: String,
+) -> Result<PathBuf, LauncherError> {
+    let version: String = holochain_version.into();
+    Ok(profile_config_dir(profile)?.join("holochain").join(version))
 }
-
 
 /// Path to the directory containing the `launcher-config.yaml` of a profile.
 ///
@@ -68,9 +69,8 @@ pub fn conductor_config_dir(holochain_version: HolochainVersion, profile: String
 /// * **Windows:** `{FOLDERID_RoamingAppData}/${APP_NAME}/profiles/${profile}/config/launcher`
 ///
 pub fn launcher_config_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(profile_config_dir(profile)?.join("launcher"))
+    Ok(profile_config_dir(profile)?.join("launcher"))
 }
-
 
 /// Path to `launcher-config.yaml` config file of a profile.
 ///
@@ -79,11 +79,10 @@ pub fn launcher_config_dir(profile: String) -> Result<PathBuf, LauncherError> {
 /// * **Windows:** `{FOLDERID_RoamingAppData}/${APP_NAME}/profiles/${profile}/config/launcher/launcher-config.yaml`
 ///
 pub fn launcher_config_path(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(profile_config_dir(profile)?.join("launcher").join("launcher-config.yaml"))
+    Ok(profile_config_dir(profile)?
+        .join("launcher")
+        .join("launcher-config.yaml"))
 }
-
-
-
 
 /** Logs */
 
@@ -97,7 +96,7 @@ pub fn launcher_config_path(profile: String) -> Result<PathBuf, LauncherError> {
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_logs_path(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(profile_logs_dir(profile)?.join("launcher.log"))
+    Ok(profile_logs_dir(profile)?.join("launcher.log"))
 }
 
 /// Directory containing logs of a given profile
@@ -115,23 +114,21 @@ pub fn profile_logs_path(profile: String) -> Result<PathBuf, LauncherError> {
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_logs_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  #[cfg(target_os = "macos")]
-  let path = dirs_next::home_dir()
-    .ok_or(LauncherError::SystemDirError(String::from("Failed to get home dir")))?
-    .join("Library/Logs")
-    .join(component_name(APP_NAME))
-    .join("profiles")
-    .join(profile);
+    #[cfg(target_os = "macos")]
+    let path = dirs_next::home_dir()
+        .ok_or(LauncherError::SystemDirError(String::from(
+            "Failed to get home dir",
+        )))?
+        .join("Library/Logs")
+        .join(component_name(APP_NAME))
+        .join("profiles")
+        .join(profile);
 
-  #[cfg(not(target_os = "macos"))]
-  let path = profile_data_dir(profile)?
-    .join("logs");
+    #[cfg(not(target_os = "macos"))]
+    let path = profile_data_dir(profile)?.join("logs");
 
-  Ok(path)
+    Ok(path)
 }
-
-
-
 
 /** Data */
 
@@ -147,17 +144,14 @@ pub fn profile_logs_dir(profile: String) -> Result<PathBuf, LauncherError> {
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_data_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(
-    dirs_next::data_dir()
-    .ok_or(LauncherError::SystemDirError(String::from("Failed to get profile data dir")))?
-    .join(component_name(APP_NAME))
-    .join("profiles")
-    .join(profile)
-  )
+    Ok(dirs_next::data_dir()
+        .ok_or(LauncherError::SystemDirError(String::from(
+            "Failed to get profile data dir",
+        )))?
+        .join(component_name(APP_NAME))
+        .join("profiles")
+        .join(profile))
 }
-
-
-
 
 /** Tauri data */
 
@@ -170,11 +164,8 @@ pub fn profile_data_dir(profile: String) -> Result<PathBuf, LauncherError> {
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_tauri_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(profile_data_dir(profile)?.join("tauri"))
+    Ok(profile_data_dir(profile)?.join("tauri"))
 }
-
-
-
 
 /** Holochain data */
 
@@ -187,7 +178,7 @@ pub fn profile_tauri_dir(profile: String) -> Result<PathBuf, LauncherError> {
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_holochain_data_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(profile_data_dir(profile)?.join("holochain"))
+    Ok(profile_data_dir(profile)?.join("holochain"))
 }
 
 /// Directory where conductor databases and app UI's of a given holochain version are stored
@@ -198,13 +189,13 @@ pub fn profile_holochain_data_dir(profile: String) -> Result<PathBuf, LauncherEr
 ///
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
-pub fn holochain_version_data_dir(holochain_version: &HolochainVersion, profile: String) -> Result<PathBuf, LauncherError> {
-  let minor_version = holochain_version.clone().minor_version();
-  Ok(profile_holochain_data_dir(profile)?.join(minor_version))
+pub fn holochain_version_data_dir(
+    holochain_version: &HolochainVersion,
+    profile: String,
+) -> Result<PathBuf, LauncherError> {
+    let minor_version = holochain_version.clone().minor_version();
+    Ok(profile_holochain_data_dir(profile)?.join(minor_version))
 }
-
-
-
 
 /** Lair data */
 
@@ -217,7 +208,7 @@ pub fn holochain_version_data_dir(holochain_version: &HolochainVersion, profile:
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
 pub fn profile_lair_dir(profile: String) -> Result<PathBuf, LauncherError> {
-  Ok(profile_data_dir(profile)?.join("lair"))
+    Ok(profile_data_dir(profile)?.join("lair"))
 }
 
 /// Directory where data of a given lair version is stored
@@ -228,8 +219,10 @@ pub fn profile_lair_dir(profile: String) -> Result<PathBuf, LauncherError> {
 ///
 /// At the time of writing, ${APP_NAME} = `holochain-launcher`
 ///
-pub fn keystore_data_dir(lair_keystore_version: LairKeystoreVersion, profile: String) -> Result<PathBuf, LauncherError> {
-  let version: String = lair_keystore_version.into();
-  Ok(profile_lair_dir(profile)?.join(version))
+pub fn keystore_data_dir(
+    lair_keystore_version: LairKeystoreVersion,
+    profile: String,
+) -> Result<PathBuf, LauncherError> {
+    let version: String = lair_keystore_version.into();
+    Ok(profile_lair_dir(profile)?.join(version))
 }
-

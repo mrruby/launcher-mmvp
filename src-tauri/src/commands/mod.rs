@@ -1,5 +1,5 @@
-pub mod config;
 pub mod choose_version;
+pub mod config;
 pub mod enable_app;
 pub mod factory_reset;
 pub mod get_app_info;
