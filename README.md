@@ -19,3 +19,7 @@ pnpm tauri dev
 ```bash
 pnpm tauri build
 ```
+
+## Architecture
+
+![Architecture](./doc/arch.png)
