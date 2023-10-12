@@ -1,21 +1,20 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { appWindow, LogicalSize } from '@tauri-apps/api/window';
-	import { invoke } from '@tauri-apps/api/tauri';
+	import { useQuery } from '@sveltestack/svelte-query';
+	import { fetchStateInfo } from '$services';
 
-	onMount(async () => {
-		const size = await appWindow.innerSize();
-		console.log('innerSize', await appWindow.innerSize());
-		console.log('outerSize', await appWindow.outerSize());
-		await appWindow.setSize(new LogicalSize(1200, 500));
-
-		const appInfo = await invoke('get_state_info', {});
-		console.log(appInfo);
-	});
+	const queryResult = useQuery('stateInfo', fetchStateInfo);
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-10 text-center flex flex-col items-center">
-		<h2 class="h2">Welcome to Launcher.</h2>
-	</div>
+	{#if $queryResult.isLoading}
+		Loading...
+	{:else if $queryResult.error}
+		An error has occurred:
+		{$queryResult.error}
+	{:else}
+		<div class="space-y-10 text-center flex flex-col items-center">
+			<h1 class="h1">Welcome to Holochain Launcher.</h1>
+			<h2>Version: ${$queryResult.data?.default_version}</h2>
+		</div>
+	{/if}
 </div>
