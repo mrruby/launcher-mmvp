@@ -1,9 +1,8 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import { getErrorMessage } from '$utils';
 import { stateInfoSchema } from '$schemas';
-import type { StateInfo } from '$schemas';
 
-export async function fetchStateInfo(): Promise<StateInfo> {
+export async function fetchStateInfo() {
 	try {
 		const response = await invoke('get_state_info', {});
 		const parsedResponse = stateInfoSchema.parse(response);
