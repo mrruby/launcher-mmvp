@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-	import { QueryClientProvider } from '@sveltestack/svelte-query';
+	import { QueryClientProvider } from '@tanstack/svelte-query';
 	import { queryClient } from '$lib';
 
 	// Floating UI for Popups
