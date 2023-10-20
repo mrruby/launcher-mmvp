@@ -12,7 +12,22 @@
 
 <div class="container h-full mx-auto flex justify-center items-center">
 	{#if $stateInfoResult.isLoading}
-		Loading...
+		<section class="card w-full">
+			<div class="p-4 space-y-4">
+				<div class="placeholder" />
+				<div class="grid grid-cols-3 gap-8">
+					<div class="placeholder" />
+					<div class="placeholder" />
+					<div class="placeholder" />
+				</div>
+				<div class="grid grid-cols-4 gap-4">
+					<div class="placeholder" />
+					<div class="placeholder" />
+					<div class="placeholder" />
+					<div class="placeholder" />
+				</div>
+			</div>
+		</section>
 	{:else if $stateInfoResult.error}
 		An error has occurred:
 		{$stateInfoResult.error}
@@ -23,6 +38,10 @@
 			<h2>Language: {get(languageStoreInstance)}</h2>
 
 			<Tooltip text="This is a custom tooltip for SvelteKit!">Hover over me</Tooltip>
+
+			<button type="button" class="btn variant-filled">
+				<span>Button</span>
+			</button>
 		</div>
 	{/if}
 </div>
